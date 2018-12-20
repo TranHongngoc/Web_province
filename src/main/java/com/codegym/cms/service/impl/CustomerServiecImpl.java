@@ -1,9 +1,12 @@
 package com.codegym.cms.service.impl;
 
 import com.codegym.cms.model.Customer;
+import com.codegym.cms.model.Province;
 import com.codegym.cms.repository.CustomerRepository;
 import com.codegym.cms.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -12,9 +15,20 @@ public class CustomerServiecImpl implements CustomerService {
     private CustomerRepository customerRepository;
 
     @Override
-    public Iterable<Customer> findAll() {
-        return customerRepository.findAll();
+    public Page<Customer> findAll(Pageable pageable) {
+        return customerRepository.findAll(pageable);
     }
+
+    @Override
+    public Page<Customer> findAllByLastNameContaining(String lastname, Pageable pageable) {
+        return customerRepository.findAllByLastNameContaining(lastname, pageable);
+    }
+
+    @Override
+    public Iterable<Customer> findAllByProvince(Province province) {
+        return customerRepository.findAllByProvince(province);
+    }
+
 
     @Override
     public Customer findById(Long id) {
